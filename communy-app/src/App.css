@@ -11,6 +11,20 @@
   --mvp-border: #E5E7EB;
 }
 
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+  background-image: url('./assets/img/fondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
 body {
   margin: 0;
   background: var(--mvp-bg);
@@ -24,14 +38,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 24px;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(79, 175, 195, 0.18) 0,
-      rgba(79, 175, 195, 0.18) 42%,
-      transparent 42%
-    ),
-    var(--mvp-bg);
 }
 
 .login-panel {
@@ -186,14 +192,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 24px;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(79, 175, 195, 0.18) 0,
-      rgba(79, 175, 195, 0.18) 42%,
-      transparent 42%
-    ),
-    var(--mvp-bg);
 }
 
 .register-panel {
@@ -673,4 +671,102 @@ body {
 .success-btn-primary:hover {
   background: #419a45;
   border-color: #419a45;
+}
+
+/*MENU CLIENTE*/
+.services-section {
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.services-section h2 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.services-section .search-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.services-section .search-bar input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.services-section .search-bar button {
+  background-color: #2f9ca3;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.services-section .categories {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.services-section .categories button {
+  background-color: #3d8b9c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.services-section .categories button.active {
+  background-color: #2b6b78;
+}
+
+/* Grid de servicios */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-card {
+  background-color: #d0e3eb;
+  border-radius: 16px;
+  text-align: center;
+  padding: 1rem;
+  min-height: 350px; /* para que todas tengan el mismo alto */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.service-card h3 {
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.service-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.2rem;
+}
+
+.service-card button {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #a8d0c6;
+  cursor: pointer;
 }

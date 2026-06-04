@@ -5,13 +5,26 @@ import Register from "./components/Register";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { useEffect } from "react";
+import ServicesSection from "./components/menuClient/client";
 
 function App() {
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (currentUser) {
+      if (currentUser.accountType === "cliente") {
+        window.location.href = "/menu-cliente";
+      } else if (currentUser.accountType === "emprendedor") {
+        window.location.href = "/menu-emprendedor";
+      }
+    }
+  }, []);
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/menu-cliente" element={<ServicesSection />} />
       </Routes>
     </Router>
   );

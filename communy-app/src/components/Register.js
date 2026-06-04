@@ -110,163 +110,122 @@ function Register() {
     e.preventDefault();
 
     const isValid = validateStep();
-
     if (!isValid) return;
 
-    console.log("Datos de registro:", form);
+    // Guardar usuario en localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const existingUser = users.find(u => u.email === form.email);
+    
+    if (existingUser) {
+      setError("Este correo ya está registrado.");
+      return;
+    }
+
+    users.push(form);
+    localStorage.setItem("users", JSON.stringify(users));
 
     setShowSuccessModal(true);
   };
 
   return (
-    <div className="register-container">
-      <main className="register-panel">
-        <div className="text-center mb-4">
-          <img
-            className="register-logo"
-            src={logoIcon}
-            alt="Logo de Communy App"
-          />
+    <div className="login-page d-flex align-items-center justify-content-center">
+      <div className="register-container">
+        <main className="register-panel">
+          <div className="text-center mb-4">
+            <img
+              className="register-logo"
+              src={logoIcon}
+              alt="Logo de Communy App"
+            />
 
-          <h1 className="register-title">
-            Crear <span>Cuenta</span>
-          </h1>
+            <h1 className="register-title">
+              Crear <span>Cuenta</span>
+            </h1>
 
-          <p className="register-subtitle">
-            Regístrate para conectar con servicios de tu comunidad
-          </p>
-        </div>
-
-        <section className="register-card">
-          <div className="register-step-header">
-            <span className={step === 1 ? "step-dot active" : "step-dot"}>
-              1
-            </span>
-
-            <div className="step-line"></div>
-
-            <span className={step === 2 ? "step-dot active" : "step-dot"}>
-              2
-            </span>
-
-            <div className="step-line"></div>
-
-            <span className={step === 3 ? "step-dot active" : "step-dot"}>
-              3
-            </span>
+            <p className="register-subtitle">
+              Regístrate para conectar con servicios de tu comunidad
+            </p>
           </div>
 
-          <h2 className="register-section-title">
-            {step === 1 && "Datos personales"}
-            {step === 2 && "Seguridad"}
-            {step === 3 && "Tipo de cuenta"}
-          </h2>
+          <section className="register-card">
+            <div className="register-step-header">
+              <span className={step === 1 ? "step-dot active" : "step-dot"}>
+                1
+              </span>
 
-          {error && <div className="alert alert-danger py-2">{error}</div>}
+              <div className="step-line"></div>
 
-          {step === 1 && (
-            <>
-              <div className="mb-3">
-                <label htmlFor="fullName" className="form-label">
-                  Nombre completo
-                </label>
+              <span className={step === 2 ? "step-dot active" : "step-dot"}>
+                2
+              </span>
 
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  className="form-control"
-                  value={form.fullName}
-                  onChange={handleChange}
-                  autoComplete="name"
-                  placeholder="Ej: Laura Vega"
-                />
-              </div>
+              <div className="step-line"></div>
 
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Correo electrónico
-                </label>
+              <span className={step === 3 ? "step-dot active" : "step-dot"}>
+                3
+              </span>
+            </div>
 
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  className="form-control"
-                  value={form.email}
-                  onChange={handleChange}
-                  autoComplete="email"
-                  placeholder="Ej: correo@gmail.com"
-                />
-              </div>
+            <h2 className="register-section-title">
+              {step === 1 && "Datos personales"}
+              {step === 2 && "Seguridad"}
+              {step === 3 && "Tipo de cuenta"}
+            </h2>
 
-              <div className="mb-4">
-                <label htmlFor="phone" className="form-label">
-                  Teléfono
-                </label>
+            {error && <div className="alert alert-danger py-2">{error}</div>}
 
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  className="form-control"
-                  value={form.phone}
-                  onChange={handleChange}
-                  autoComplete="tel"
-                  placeholder="Ej: 3001234567"
-                />
-              </div>
+            {step === 1 && (
+              <>
+                <div className="mb-3">
+                  <label htmlFor="fullName" className="form-label">
+                    Nombre completo
+                  </label>
 
-              <button
-                className="btn-register"
-                type="button"
-                onClick={handleNext}
-              >
-                Siguiente
-              </button>
-            </>
-          )}
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    className="form-control"
+                    value={form.fullName}
+                    onChange={handleChange}
+                    autoComplete="name"
+                    placeholder="Ej: Laura Vega"
+                  />
+                </div>
 
-          {step === 2 && (
-            <>
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Contraseña
-                </label>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Correo electrónico
+                  </label>
 
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  className="form-control"
-                  value={form.password}
-                  onChange={handleChange}
-                  autoComplete="new-password"
-                  placeholder="Mínimo 6 caracteres"
-                />
-              </div>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    className="form-control"
+                    value={form.email}
+                    onChange={handleChange}
+                    autoComplete="email"
+                    placeholder="Ej: correo@gmail.com"
+                  />
+                </div>
 
-              <div className="mb-4">
-                <label htmlFor="confirmPassword" className="form-label">
-                  Confirmar contraseña
-                </label>
+                <div className="mb-4">
+                  <label htmlFor="phone" className="form-label">
+                    Teléfono
+                  </label>
 
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  className="form-control"
-                  value={form.confirmPassword}
-                  onChange={handleChange}
-                  autoComplete="new-password"
-                  placeholder="Repite tu contraseña"
-                />
-              </div>
-
-              <div className="register-actions">
-                <button className="btn-back" type="button" onClick={handleBack}>
-                  Atrás
-                </button>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    className="form-control"
+                    value={form.phone}
+                    onChange={handleChange}
+                    autoComplete="tel"
+                    placeholder="Ej: 3001234567"
+                  />
+                </div>
 
                 <button
                   className="btn-register"
@@ -275,108 +234,160 @@ function Register() {
                 >
                   Siguiente
                 </button>
-              </div>
-            </>
-          )}
+              </>
+            )}
 
-          {step === 3 && (
-            <form onSubmit={handleSubmit}>
-              <p className="register-help-text">
-                Selecciona cómo quieres usar Communy App.
+            {step === 2 && (
+              <>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">
+                    Contraseña
+                  </label>
+
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    className="form-control"
+                    value={form.password}
+                    onChange={handleChange}
+                    autoComplete="new-password"
+                    placeholder="Mínimo 6 caracteres"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label htmlFor="confirmPassword" className="form-label">
+                    Confirmar contraseña
+                  </label>
+
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    className="form-control"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    autoComplete="new-password"
+                    placeholder="Repite tu contraseña"
+                  />
+                </div>
+
+                <div className="register-actions">
+                  <button className="btn-back" type="button" onClick={handleBack}>
+                    Atrás
+                  </button>
+
+                  <button
+                    className="btn-register"
+                    type="button"
+                    onClick={handleNext}
+                  >
+                    Siguiente
+                  </button>
+                </div>
+              </>
+            )}
+
+            {step === 3 && (
+              <form onSubmit={handleSubmit}>
+                <p className="register-help-text">
+                  Selecciona cómo quieres usar Communy App.
+                </p>
+
+                <div className="account-type-grid mb-3">
+                  <button
+                    type="button"
+                    className={`account-type-card ${
+                      form.accountType === "cliente" ? "active" : ""
+                    }`}
+                    onClick={() => handleAccountType("cliente")}
+                  >
+                    <strong>Cliente</strong>
+                    <span>Busco contratar servicios</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`account-type-card ${
+                      form.accountType === "emprendedor" ? "active" : ""
+                    }`}
+                    onClick={() => handleAccountType("emprendedor")}
+                  >
+                    <strong>Emprendedor</strong>
+                    <span>Quiero ofrecer mis servicios</span>
+                  </button>
+                </div>
+
+                <div className="form-check mb-4">
+                  <input
+                    id="acceptTerms"
+                    name="acceptTerms"
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={form.acceptTerms}
+                    onChange={handleChange}
+                  />
+
+                  <label htmlFor="acceptTerms" className="form-check-label">
+                    Acepto los términos y condiciones
+                  </label>
+                </div>
+
+                <div className="register-actions">
+                  <button className="btn-back" type="button" onClick={handleBack}>
+                    Atrás
+                  </button>
+
+                  <button className="btn-register" type="submit">
+                    Registrarme
+                  </button>
+                </div>
+              </form>
+            )}
+
+            <p className="small text-center mt-3 mb-0">
+              ¿Ya tienes cuenta?{" "}
+              <Link className="text-decoration-none text-brand" to="/">
+                Iniciar sesión
+              </Link>
+            </p>
+          </section>
+        </main>
+        {showSuccessModal && (
+          <div className="success-modal-backdrop">
+            <div className="success-modal">
+              <div className="success-icon">
+                ✓
+              </div>
+
+              <h3>¡Registro exitoso!</h3>
+
+              <p>
+                Tu cuenta ha sido creada correctamente en Communy App.
               </p>
 
-              <div className="account-type-grid mb-3">
+              <div className="success-modal-actions">
                 <button
                   type="button"
-                  className={`account-type-card ${
-                    form.accountType === "cliente" ? "active" : ""
-                  }`}
-                  onClick={() => handleAccountType("cliente")}
+                  className="success-btn-secondary"
+                  onClick={() => setShowSuccessModal(false)}
                 >
-                  <strong>Cliente</strong>
-                  <span>Busco contratar servicios</span>
+                  Cerrar
                 </button>
 
                 <button
                   type="button"
-                  className={`account-type-card ${
-                    form.accountType === "emprendedor" ? "active" : ""
-                  }`}
-                  onClick={() => handleAccountType("emprendedor")}
+                  className="success-btn-primary"
+                  onClick={() => navigate("/")}
                 >
-                  <strong>Emprendedor</strong>
-                  <span>Quiero ofrecer mis servicios</span>
+                  Iniciar sesión
                 </button>
               </div>
-
-              <div className="form-check mb-4">
-                <input
-                  id="acceptTerms"
-                  name="acceptTerms"
-                  type="checkbox"
-                  className="form-check-input"
-                  checked={form.acceptTerms}
-                  onChange={handleChange}
-                />
-
-                <label htmlFor="acceptTerms" className="form-check-label">
-                  Acepto los términos y condiciones
-                </label>
-              </div>
-
-              <div className="register-actions">
-                <button className="btn-back" type="button" onClick={handleBack}>
-                  Atrás
-                </button>
-
-                <button className="btn-register" type="submit">
-                  Registrarme
-                </button>
-              </div>
-            </form>
-          )}
-
-          <p className="small text-center mt-3 mb-0">
-            ¿Ya tienes cuenta?{" "}
-            <Link className="text-decoration-none text-brand" to="/">
-              Iniciar sesión
-            </Link>
-          </p>
-        </section>
-      </main>
-      {showSuccessModal && (
-  <div className="success-modal-backdrop">
-    <div className="success-modal">
-      <div className="success-icon">
-        ✓
+            </div>
+          </div>
+        )}
       </div>
-
-      <h3>¡Registro exitoso!</h3>
-
-      <p>
-        Tu cuenta ha sido creada correctamente en Communy App.
-      </p>
-
-      <div className="success-modal-actions">
-        <button
-          type="button"
-          className="success-btn-secondary"
-          onClick={() => setShowSuccessModal(false)}
-        >
-          Cerrar
-        </button>
-
-        <button
-          type="button"
-          className="success-btn-primary"
-          onClick={() => navigate("/")}
-        >
-          Iniciar sesión
-        </button>
-      </div>
-    </div>
-  </div>
-)}
     </div>
   );
 }
