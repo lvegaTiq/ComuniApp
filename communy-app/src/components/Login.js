@@ -1,9 +1,12 @@
 import { useState } from "react";
 import logoIcon from "../assets/img/2.png"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Login() {
+  const navigate = useNavigate() 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -17,28 +20,38 @@ function Login() {
       alert("Usuario o contraseña incorrectos");
       return;
     }
-  
+
     localStorage.setItem("currentUser", JSON.stringify(foundUser));
 
+    // Redirigir usando React Router
     if (foundUser.accountType === "cliente") {
-      window.location.href = "/menu-cliente";
+      navigate("/menu-cliente");
     } else if (foundUser.accountType === "emprendedor") {
-      window.location.href = "/menu-emprendedor";
+      navigate("/menu-emprendedor");
     }
   };
 
   return (
-    <div className="login-page d-flex align-items-center justify-content-center">
+
+    <div className="login-page d-grid align-items-center justify-content-center">
+      <header className="site-header">
+        <div className="header-content">
+          <div className="logo-container">
+            <img src={logoIcon} alt="Logo Communy App" className="logo" />
+          </div>
+
+          <nav className="nav-menu">
+            <a href="/home" className="btn-menu">Home</a>
+            <a href="/nosotros" className="btn-menu">Nosotros</a>
+            <a href="/login" className="btn-menu">Iniciar sesión</a>
+            <a href="/register" className="btn-menu">Registrar</a>
+          </nav>
+
+        </div>
+      </header>
       <div className="login-container">
         <main className="login-panel p-4">
           <div className="text-center mb-3">
-            <img
-              className="rounded-circle object-fit-cover"
-              width="110"
-              height="110"
-              src={logoIcon}
-              alt="Logo de Communy App"
-            />
 
             <h1 className="h1 fw-bold mb-1 mt-1">
               Communy <span className="text-success">App</span>

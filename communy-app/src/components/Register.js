@@ -128,16 +128,26 @@ function Register() {
   };
 
   return (
-    <div className="login-page d-flex align-items-center justify-content-center">
+    <div className="login-page d-grid align-items-center justify-content-center">
+      <header className="site-header">
+        <div className="header-content">
+          <div className="logo-container">
+            <img src={logoIcon} alt="Logo Communy App" className="logo" />
+          </div>
+
+          <nav className="nav-menu">
+            <a href="/home" className="btn-menu">Home</a>
+            <a href="/nosotros" className="btn-menu">Nosotros</a>
+            <a href="/login" className="btn-menu">Iniciar sesión</a>
+            <a href="/register" className="btn-menu">Registrar</a>
+          </nav>
+
+        </div>
+      </header>
       <div className="register-container">
         <main className="register-panel">
           <div className="text-center mb-4">
-            <img
-              className="register-logo"
-              src={logoIcon}
-              alt="Logo de Communy App"
-            />
-
+            
             <h1 className="register-title">
               Crear <span>Cuenta</span>
             </h1>
